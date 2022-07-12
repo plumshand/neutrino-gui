@@ -6,6 +6,8 @@ MusicXMLファイルを[NEUTRINO](https://studio-neutrino.com)でwavに変換す
 波形編集や細かい調声などは行えません。
 一括で変換することに特化したツールなので。
 
+.NET 5.0のランタイムが多分必要です。
+
 ## 使い方
 
 1. `*.musicxml`ファイルを画面にドラッグ＆ドロップ

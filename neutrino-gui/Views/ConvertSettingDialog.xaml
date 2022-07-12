@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="neutrino_gui.Views.ConvertSettingDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:neutrino_gui.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="#018f8f8f">
+        <Border Margin="16" CornerRadius="20" BorderBrush="LightGray" BorderThickness="3" Background="White" RenderTransformOrigin="0.5,0.5">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform x:Name="SongSettingScale" ScaleY="1.0" />
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Visible}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                             From="0.0" To="1.0"
+                                                             Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                             From="1.0" To="0.0"
+                                                             Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Grid Margin="16,12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" BorderBrush="Black" BorderThickness="0,0,0,1" Padding="0,2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="変換設定 - " />
+                        <TextBox Grid.Column="1"
+                                     BorderThickness="0"
+                                     IsReadOnly="True"
+                                     Text="{Binding Path=FilePath, Mode=OneWay}"/>
+                    </Grid>
+                </Border>
+
+                <ScrollViewer Grid.Row="1" Margin="0,8"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
+                    <Grid VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Margin="0,0,16,8"
+                                   VerticalAlignment="Center"
+                                   Text="モデル" />
+                        <ComboBox Grid.Row="0" Grid.Column="1"
+                                  Margin="0,0,0,8"
+                                  Width="150"
+                                  HorizontalAlignment="Left"
+                                  ItemsSource="{Binding Path=VoiceModels}"
+                                  DisplayMemberPath="Name"
+                                  SelectedItem="{Binding Path=SelectedModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="2"
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal">
+                    <Button Padding="16,6"
+                            Content="OK"
+                            Command="{Binding Path=Save}"/>
+                    <Button Padding="16,6"
+                            Margin="8,0,0,0"
+                            Content="キャンセル"
+                            Command="{Binding Path=Cancel}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
